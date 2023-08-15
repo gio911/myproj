@@ -2,16 +2,13 @@ import { Injectable } from "@angular/core";
 import { User } from "../interfaces";
 import { HttpClient } from '@angular/common/http'
 import { Observable } from "rxjs";
-
-import AppConfig from '../../../app-config'
+import { environment } from '../../../environments/environment'
 
 @Injectable({
     providedIn:'root'
 })
 export class AuthService{
-
-    apiUrl = AppConfig.settings
-    
+    apiUrl = environment.apiServer   
     
     constructor(private http:HttpClient){
 
@@ -22,8 +19,7 @@ export class AuthService{
     }
 
     login(user:User):Observable<{token:string}>{
-        console.log(this.apiUrl);
-        return this.http.post<{token:string}>('/api/login',user)
+        return this.http.post<{token:string}>(this.apiUrl + '/api/login',user)
     }
 
 }
