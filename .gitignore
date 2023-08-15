@@ -1,0 +1,6 @@
+__pycache__
+fastapi-env
+.DS_Stor
+venv
+migrations
+node_modules
