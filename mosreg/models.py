@@ -4,21 +4,21 @@ from database import Base
 from sqlalchemy.orm import relationship
 
 
-class Customer(Base):
-    __tablename__='customers'
+class Payment(Base):
+    __tablename__='payments'
 
     id = Column(Integer, primary_key=True, index=True)
-    payment_date = Column(DateTime, default=datetime.utcnow)
-    payment_num = Column(Integer, unique=True)
-    payment_sum = Column(Integer)
+    date = Column(DateTime, default=datetime.utcnow)
+    num = Column(Integer, unique=True)
+    sum = Column(Integer)
     counterparty = Column(String)
     contract = Column(String)
-    payment_purpose = Column(String)
+    purpose = Column(String)
     comment = Column(String)
 
     user_id = Column(Integer, ForeignKey('users.id'))
 
-    creator = relationship("User", back_populates="customers")
+    creator = relationship("User", back_populates="payments")
 
 class User(Base):
     __tablename__='users'
@@ -28,4 +28,4 @@ class User(Base):
     email = Column(String)
     password = Column(String)
 
-    customers = relationship('Customer', back_populates='creator')
+    payments = relationship('Payment', back_populates='creator')

@@ -5,11 +5,6 @@ Revises: 95f98cfe293f
 Create Date: 2023-08-13 00:48:23.303389
 
 """
-from alembic import op
-import sqlalchemy as sa
-
-from mosreg import models
-from mosreg.services.user import create_user
 from utils.initial_data import database_initialization
 
 

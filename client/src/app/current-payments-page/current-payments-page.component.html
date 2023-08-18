@@ -1,0 +1,32 @@
+<div class="page-title">
+    <h4>Платежи</h4>
+    <button 
+    class="waves-effect waves-light btn grey darken-1"
+    routerLink="/currentpayments/new"
+    >Добавить платеж</button>
+</div>
+
+<div
+*ngIf="current_payments$ | async as current_payments; else loader" 
+class="row"
+>
+    <div class="col s12">
+        <div class="collection" *ngIf="current_payments.length !== 0; else empty">
+        <a  *ngFor="let current_payment of current_payments"
+            [routerLink]="['/currentpayments', current_payment.id]" 
+            class="collection-item">
+            {{current_payment.counterparty}}
+        </a>
+            
+        </div>
+        <ng-template #empty>
+            <div class="center">
+                У вас нет ни одного текущего платежаы
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader> 
+</ng-template>

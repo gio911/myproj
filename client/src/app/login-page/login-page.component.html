@@ -7,7 +7,7 @@ class="card"
         <span class="card-title">Войти в систему</span>
         <div class="input-field">
             <input 
-            formControlName="email"
+            formControlName="username"
             id="email" 
             type="email"
             >
@@ -26,7 +26,7 @@ class="card"
         <button 
             type="submit"
             class="modal-action btn waves-effect"
-            [disabled]="form.invalid"
+            [disabled]="form.invalid || form.invalid"
         >Войти
         </button>
     </div>

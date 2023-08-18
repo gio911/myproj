@@ -1,17 +1,17 @@
 from datetime import date
 from typing import List, Optional
 from pydantic import BaseModel
-
-class CustomerBase(BaseModel):
-    payment_date:date
-    payment_num:int
-    payment_sum:int
+# current_payments
+class PaymentBase(BaseModel):
+    date:date
+    num:int
+    sum:int
     counterparty:str
     contract:str
-    payment_purpose:str = None
+    purpose:str = None
     comment:str
     
-class Customer(CustomerBase):
+class Payment(PaymentBase):
     class Config():
         orm_mode=True
     
@@ -28,12 +28,13 @@ class UserWithId(User):
 class ShowUser(BaseModel):
     name:str
     email:str
-    customers:List[Customer]=[]
+    payments:List[Payment]=[]
 
     class Config():
         orm_mode=True
 
-class ShowCustomer(BaseModel):
+class ShowPayment(BaseModel):
+    id:int
     counterparty:str
     creator:ShowUser
 

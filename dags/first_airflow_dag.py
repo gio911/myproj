@@ -33,21 +33,21 @@ from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 
 
-class Customer(Base):
-    __tablename__='customers'
+class Payment(Base):
+    __tablename__='payments'
 
     id = Column(Integer, primary_key=True, index=True)
-    payment_date = Column(DateTime, default=datetime.utcnow)
-    payment_num = Column(Integer, unique=True)
-    payment_sum = Column(Integer)
+    date = Column(DateTime, default=datetime.utcnow)
+    num = Column(Integer, unique=True)
+    sum = Column(Integer)
     counterparty = Column(String)
     contract = Column(String)
-    payment_purpose = Column(String)
+    purpose = Column(String)
     comment = Column(String)
 
     user_id = Column(Integer, ForeignKey('users.id'))
 
-    creator = relationship("User", back_populates="customers")
+    creator = relationship("User", back_populates="payments")
 
 class User(Base):
     __tablename__='users'
@@ -57,7 +57,7 @@ class User(Base):
     email = Column(String)
     password = Column(String)
 
-    customers = relationship('Customer', back_populates='creator')
+    payments = relationship('Payment', back_populates='creator')
 ##########################
 
 def from_excel_to_dict(file_path='/Users/gio/Desktop/myproj/data/76.xlsx', sheet_name=u'Лист1'):
@@ -85,9 +85,15 @@ def from_excel_to_dict(file_path='/Users/gio/Desktop/myproj/data/76.xlsx', sheet
         current_user = db.query(User).filter(User.name==worker).first()
         if current_user:
             print('YES')
-            for customer in data_dict[worker]:
-                new_customer = Customer(counterparty=customer['counterparty'], payment_num=customer['payment_num'], payment_sum=customer['payment_sum'], payment_date=customer['payment_date'], contract=customer['contract'], comment=customer['comment'], user_id=current_user.id)
-                db.add(new_customer)
+            for payment in data_dict[worker]:
+                new_payment = Payment(counterparty=payment['counterparty'], 
+                                      num=payment['payment_num'], 
+                                      sum=payment['payment_sum'], 
+                                      date=payment['payment_date'], 
+                                      contract=payment['contract'], 
+                                      comment=payment['comment'], 
+                                      user_id=current_user.id)
+                db.add(new_payment)
                 db.commit()
         else:
             continue

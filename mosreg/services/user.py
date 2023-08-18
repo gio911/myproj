@@ -7,6 +7,7 @@ from mosreg.hashing import Hash
 from mosreg.oauth2 import get_current_user
 
 def create_user(request:schemas.User, db:Session):
+    print(request, 888)
     new_user = models.User(name=request.name, email=request.email, password=Hash.bcrypt(request.password))
     db.add(new_user) 
     db.commit()

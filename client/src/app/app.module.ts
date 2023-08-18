@@ -2,13 +2,20 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { TokenInterceptor } from './shared/classes/token.interceptor';
+import { OverviewPageComponent } from './overview-page/overview-page.component';
+import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
+import { ArchivePageComponent } from './archive-page/archive-page.component';
+import { CurrentPaymentsPageComponent } from './current-payments-page/current-payments-page.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { CurrentPaymentsFormComponent } from './current-payments-page/current-payments-form/current-payments-form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +23,13 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     LoginPageComponent,
     AuthLayoutComponent,
     SiteLayoutComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    OverviewPageComponent,
+    AnalyticsPageComponent,
+    ArchivePageComponent,
+    CurrentPaymentsPageComponent,
+    LoaderComponent,
+    CurrentPaymentsFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +38,11 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    multi:true,
+    useClass:TokenInterceptor
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
