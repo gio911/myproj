@@ -1,7 +1,8 @@
 from datetime import datetime
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, LargeBinary
 from database import Base
 from sqlalchemy.orm import relationship
+
 
 
 class Payment(Base):
@@ -15,6 +16,7 @@ class Payment(Base):
     contract = Column(String)
     purpose = Column(String)
     comment = Column(String)
+    document = Column(LargeBinary)
 
     user_id = Column(Integer, ForeignKey('users.id'))
 

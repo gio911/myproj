@@ -16,6 +16,7 @@ export interface Payment{
     contract:string
     purpose?:string
     comment:string
+    document?:Uint8Array
 }
 
 export interface Token{

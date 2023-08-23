@@ -36,3 +36,7 @@ def update_payment(id:int, request:schemas.Payment, db:Session=Depends(get_db), 
     print(request, 'routerrouterrouter')
 
     return payment.update(id, request, db, current_user)
+
+@router.post('/toword/{id}')
+def create_word_file(id:int, request:schemas.Payment, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
+    return payment.to_word(id, request, db, current_user)

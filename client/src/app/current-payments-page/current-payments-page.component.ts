@@ -8,6 +8,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 
 import { ToastrService } from 'ngx-toastr';
+import { Payment } from '../shared/interfaces';
 
 @Component({
   selector: 'app-current-payments-page',
@@ -16,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CurrentPaymentsPageComponent implements OnInit{
   
-  displayedColumns: string[] = ['counterparty', 'contract', 'date', 'num', 'sum', 'comment', 'edit', 'delete'];
+  displayedColumns: string[] = ['counterparty', 'contract', 'date', 'num', 'sum', 'comment', 'edit', 'delete', 'createWord'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -88,7 +89,6 @@ export class CurrentPaymentsPageComponent implements OnInit{
    })
   }
 
-
   deletePayment(id:number){
     const state = this.confirmDelete()
 
@@ -103,6 +103,19 @@ export class CurrentPaymentsPageComponent implements OnInit{
             this.toaster.error('Ошибка при удалении')  
         }})
     }
+   }
+
+   createWordFile(id:number, data:Payment){
+      this.currentPaymentService.createWordFile(id, data)
+        .subscribe({
+          next:(res)=>{
+            console.log(res, 'OK');         
+          },
+          error:(err)=>{
+            console.log(err);
+            
+          }
+        })
    }
 
   toggleCheckbox(id:number){

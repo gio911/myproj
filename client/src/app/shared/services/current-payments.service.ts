@@ -30,4 +30,8 @@ export class CurrentPaymentsService{
     deleteProduct(id:number){
         return this.http.delete<any>(this.apiUrl+'/api/currentpayments/'+id)
     }
+
+    createWordFile(id:number, data:Payment){
+        return this.http.post<any>(this.apiUrl+'/api/currentpayments/toword/'+id, data)
+    }
 }
