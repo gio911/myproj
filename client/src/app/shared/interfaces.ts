@@ -9,12 +9,12 @@ export interface RegisterUser extends User{
 
 export interface Payment{
     id:number
-    payment_date:Date
-    payment_num:number
-    payment_sum:number
+    date:Date
+    num:number
+    sum:number
     counterparty:string
     contract:string
-    payment_purpose?:string
+    purpose?:string
     comment:string
 }
 

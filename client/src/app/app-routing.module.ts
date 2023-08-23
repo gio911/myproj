@@ -19,9 +19,9 @@ const routes: Routes = [
   ]},
   {path:'', component:SiteLayoutComponent, canActivate:[AuthGuard], children:[
     {path:'overview', component:OverviewPageComponent},
-    {path:'currentpayments', component:CurrentPaymentsPageComponent},
     {path:'archive', component:ArchivePageComponent},
     {path:'analytics', component:AnalyticsPageComponent},
+    {path:'currentpayments', component:CurrentPaymentsPageComponent},
     {path:'currentpayments/new', component:CurrentPaymentsFormComponent},
     {path:'currentpayments/:id', component:CurrentPaymentsFormComponent}
   ]}

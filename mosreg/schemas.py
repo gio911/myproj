@@ -1,9 +1,9 @@
-from datetime import date
+from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel
 # current_payments
 class PaymentBase(BaseModel):
-    date:date
+    date:datetime
     num:int
     sum:int
     counterparty:str
@@ -15,6 +15,11 @@ class Payment(PaymentBase):
     class Config():
         orm_mode=True
     
+class PaymentWithId(PaymentBase):
+    id:int
+    class Config():
+        orm_mode=True
+
 class User(BaseModel):
     name:str
     email:str

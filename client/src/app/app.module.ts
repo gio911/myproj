@@ -16,6 +16,12 @@ import { ArchivePageComponent } from './archive-page/archive-page.component';
 import { CurrentPaymentsPageComponent } from './current-payments-page/current-payments-page.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { CurrentPaymentsFormComponent } from './current-payments-page/current-payments-form/current-payments-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from 'src/material.module';
+import {ToastrModule} from 'ngx-toastr';
+import { AddCurrentPaymentsDialogComponent } from './add-current-payments-dialog/add-current-payments-dialog.component'
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -30,15 +36,21 @@ import { CurrentPaymentsFormComponent } from './current-payments-page/current-pa
     CurrentPaymentsPageComponent,
     LoaderComponent,
     CurrentPaymentsFormComponent,
+    AddCurrentPaymentsDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    ToastrModule.forRoot()
+
   ],
-  providers: [{
+  providers: [DatePipe, 
+  {
     provide:HTTP_INTERCEPTORS,
     multi:true,
     useClass:TokenInterceptor

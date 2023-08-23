@@ -1,0 +1,42 @@
+/* div.collection{
+    position: absolute;
+    display: inline-block;
+}
+
+
+
+input.checkbox{
+    position: absolute;
+    top:0;
+    right:0;
+    z-index: 1;
+
+}
+
+a.collection-item{
+    z-index: 0;
+} */
+
+
+.button-container {
+    display: flex;
+    justify-content: flex-end; 
+}
+  
+table {
+    width: 100%;
+  }
+  
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+  
+
+  

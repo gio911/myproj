@@ -4,6 +4,7 @@ import { AuthService } from '../shared/services/auth.services';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialService } from '../shared/classes/material.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-page',
@@ -15,7 +16,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   aSub!:Subscription;
   form!: FormGroup;
 
-  constructor(private auth:AuthService, private router:Router, private route:ActivatedRoute){
+  constructor(private auth:AuthService, 
+              private router:Router, 
+              private route:ActivatedRoute,
+              private toaster: ToastrService
+              ){
     
   }
 //Validators.email
@@ -28,11 +33,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     this.route.queryParams.subscribe((params)=>{
       if(params['registered']){
-        MaterialService.toast('Вы зарегистрировались в системе')
+        this.toaster.success('Вы зарегистрировались в системе')
       }else if(params['accessDenide']){
+        this.toaster.success('Для начала авторизуйтесь')
         MaterialService.toast('Для начала авторизуйтесь')
       }else if(params['tokenExpired']){
-        MaterialService.toast('Пожалуйста зайдите в систему заново')
+        this.toaster.success('Пожалуйста зайдите в систему заново')
       }
     })
   }

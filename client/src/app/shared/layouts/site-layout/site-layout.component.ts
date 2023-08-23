@@ -10,14 +10,14 @@ import { MaterialService } from '../../classes/material.service';
 })
 export class SiteLayoutComponent implements AfterViewInit{
 
-  @ViewChild('floating') floatingRef!:ElementRef
+  //@ViewChild('floating') floatingRef!:ElementRef
 
   constructor(private auth:AuthService, private router:Router){
 
   }
 
   ngAfterViewInit(): void {
-    MaterialService.initializeFloatingButton(this.floatingRef)
+    //MaterialService.initializeFloatingButton(this.floatingRef)
   }
 
   links=[

@@ -1,37 +1,22 @@
-<ul class="sidenav sidenav-fixed a-sidenav">
-    <h4>MRG</h4>
 
-    <li 
-    class="bold" 
+<mat-toolbar color="primary" class="mat-elevation-z3">
+
+    <span>MRG</span>  
+    <div class="spacer"></div>
+    <a mat-raised-button color="accent" routerLink="/logout" (click)="logout($event)">Выход</a>
+
+</mat-toolbar>
+
+<div class="page-container">
+  <div class="nav-list-frame">
+    <mat-nav-list
     *ngFor="let link of links"
     routerLinkActive="active"
     >
-        <a [routerLink]="[link.url]" class="waves-effect waves-orange">
-            {{link.name}}
-        </a>
-    </li>
-   
-    <li class="bold last">
-        <a href="#" class="waves-effect waves-orange" (click)="logout($event)">Выйти</a>
-    </li>
-</ul>
-
-<main class="content">
+      <a mat-list-item [routerLink]="[link.url]">{{ link.name }}</a>
+    </mat-nav-list>
+  </div>
+  <div class="main-content">
     <router-outlet></router-outlet>
-</main>
-
-<div class="fixed-action-btn" #floating>
-    <a class="btn-floating btn-large red">
-        <i class="large material-icons">add</i>
-    </a>
-    <ul>
-        <li><a class="btn-floating green"><i class="material-icons">assignment</i></a></li>
-        <li><a 
-            routerLink="/currentpayments/new"
-            class="btn-floating blue"
-            >
-            <i class="material-icons">list</i>
-        </a>
-    </li>
-    </ul>
+  </div>
 </div>

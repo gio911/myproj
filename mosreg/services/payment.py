@@ -13,7 +13,7 @@ def get_all(db:Session = Depends(get_db), current_user:schemas.UserWithId=Depend
     return payments
 
 def create(request:schemas.Payment, db:Session = Depends(get_db), current_user:schemas.UserWithId=Depends(get_current_user)):
-    new_payment = models.Payment(counterparty=request.counterparty, payment_num=request.payment_num, payment_sum=request.payment_sum, contract=request.contract, payment_purpose=request.payment_purpose, comment=request.comment, user_id=current_user.id)
+    new_payment = models.Payment(counterparty=request.counterparty, num=request.num, sum=request.sum, contract=request.contract, purpose=request.purpose, comment=request.comment, user_id=current_user.id)
     db.add(new_payment)
     db.commit()
     db.refresh(new_payment)
@@ -30,11 +30,12 @@ def delete(id:int, db:Session = Depends(get_db), current_user:schemas.UserWithId
     return {'deleted'}
 
 def update(id:int,request:schemas.Payment, db:Session = Depends(get_db), current_user:schemas.UserWithId=Depends(get_current_user)):
+    print(request, 'requestrequestrequest')
     payment = db.query(models.Payment).filter(models.Payment.user_id==current_user.id).filter(models.Payment.id==id)
     if not payment.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Payment for udating with the id {id} was not found')
-    payment.update({'name':request.name})
+    payment.update({'counterparty':request.counterparty})
     db.commit()
     return {'updated'}
 

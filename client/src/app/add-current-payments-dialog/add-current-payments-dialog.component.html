@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Добавление платежа</h1>
+
+<div mat-dialog-content>
+
+    <form action="" [formGroup]="paymentForm">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Потребитель</mat-label>
+            <input formControlName="counterparty" matInput placeholder="Потребитель">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>№ Договора</mat-label>
+            <input formControlName="contract" matInput placeholder="Договор">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Дата платежа</mat-label>
+            <input formControlName="date" matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Номер платежа</mat-label>
+            <input formControlName="num" type="number" matInput placeholder="Номер платежа">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Сумма платежа</mat-label>
+            <input formControlName="sum" matInput type="number" placeholder="Сумма платежа">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Коментарий</mat-label>
+            <textarea formControlName="comment" matInput placeholder="Коментарий"></textarea>
+        </mat-form-field>
+
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Отмена</button>
+    <button style="margin-left:8px;" mat-raised-button color="primary" (click)="addPayment()">{{actionBtn}}</button>
+
+</div>

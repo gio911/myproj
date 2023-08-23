@@ -1,4 +1,4 @@
-<form 
+<!-- <form 
 class="card"
 [formGroup]="form"
 (ngSubmit)="onSubmit()"
@@ -31,3 +31,43 @@ class="card"
         </button>
     </div>
 </form>
+ -->
+
+<mat-card>
+    <mat-card-header class="centered-content">
+        <h1>Вход в личный кабинет</h1>
+    </mat-card-header>
+    <mat-card-content class="centered-content">
+        <form 
+        class="example-form"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        >
+            <mat-form-field class="example-full-width">
+                <mat-label>Почта</mat-label>
+                <input matInput
+                formControlName="username"
+                id="username" 
+                type="username"
+              
+              >
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Пароль</mat-label>
+                <input matInput
+                formControlName="password"
+                id="password" 
+                type="password"
+            >
+            </mat-form-field>  
+            <button 
+            mat-raised-button color="primary"
+            type="submit"
+            class="modal-action btn waves-effect"
+            [disabled]="form.invalid || form.disabled"
+            >Войти
+            </button>     
+        </form>
+    </mat-card-content>
+  </mat-card>

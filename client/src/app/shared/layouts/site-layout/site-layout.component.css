@@ -1,0 +1,25 @@
+
+
+  .page-container {
+    display: flex;
+    height: 100vh; /* Make the container height equal to the viewport height */
+  }
+  
+  .nav-list-frame {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    width: 200px;
+  }
+  
+  .main-content {
+    flex: 1; /* Allow the main content to fill the remaining space */
+    padding: 16px;
+    /* Add any additional styling for your main content */
+  }
+  
+  .spacer{
+    flex:1 1 auto;
+}
+  

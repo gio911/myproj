@@ -1,4 +1,4 @@
-<nav>
+<!-- <nav>
     <div class="nav-wrapper grey darken-1">
         <a routerLink="/" class="brand-logo">Newborn</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -10,8 +10,23 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav> -->
 
-<div class="auth-block">
+<mat-toolbar color="primary" class="mat-elevation-z8">
+
+ <span>MRG</span>  
+
+    <div class="spacer">
+        
+    </div>
+
+    <a mat-button routerLink="/register">Регистрация</a>
+    <a mat-raised-button color="accent" routerLink="/login">Вход</a>
+   
+
+</mat-toolbar>
+
+
+<div >
     <router-outlet></router-outlet>
 </div>
