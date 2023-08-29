@@ -31,7 +31,16 @@ export class CurrentPaymentsService{
         return this.http.delete<any>(this.apiUrl+'/api/currentpayments/'+id)
     }
 
-    createWordFile(id:number, data:Payment){
-        return this.http.post<any>(this.apiUrl+'/api/currentpayments/toword/'+id, data)
+    createPdfFile(id:number, payment:Payment){
+        
+        console.log(payment, 885858540000);
+        
+        return this.http.post<any>(this.apiUrl+'/api/currentpayments/create-pdf/'+id, payment)
     }
+
+    fetchPdf(id:number, payment:Payment){
+        return this.http.post(this.apiUrl+'/api/currentpayments/fetch-pdf/'+id, payment, {observe:'response', responseType: 'blob' });
+      }
+
+    
 }

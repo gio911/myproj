@@ -3,48 +3,6 @@
     color="warn">Добавить платеж</button>
 </div>
 
-<!-- <div class="page-title">
-
-    <h4>Платежи</h4>
-  
-    <button 
-    class="waves-effect waves-light btn grey darken-1"
-    routerLink="/currentpayments/new"
-    >Добавить платеж</button> 
-</div>
-
-<div
-*ngIf="current_payments$ | async as current_payments; else loader" 
-class="row"
->
-    <div class="col s12">
-        <div class="collection" *ngIf="current_payments.length !== 0; else empty">
-        <a  *ngFor="let current_payment of current_payments"
-            [routerLink]="['/currentpayments', current_payment.id]" 
-            class="collection-item">
-            {{current_payment.counterparty}}
-            
-        </a>            
-        </div>
-        <p>
-      <label>
-        <input type="checkbox" class="filled-in" checked="checked" />
-        <span>Filled in</span>
-      </label>
-    </p>
-        <ng-template #empty>
-            <div class="center">
-                У вас нет ни одного текущего платежаы
-            </div>
-        </ng-template>
-    </div>
-</div>
-
-<ng-template #loader>
-    <app-loader></app-loader> 
-</ng-template> -->
-
-
 <div class="container">
 
     <div style="margin-top:10px;">
@@ -56,25 +14,21 @@ class="row"
           <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort>
           
-              <!-- ID Column -->
               <ng-container matColumnDef="counterparty">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Потребитель</th>
                 <td mat-cell *matCellDef="let row"> {{row.counterparty}} </td>
               </ng-container>
           
-              <!-- Progress Column -->
               <ng-container matColumnDef="contract">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Договор </th>
                 <td mat-cell *matCellDef="let row"> {{row.contract}} </td>
               </ng-container>
           
-              <!-- Name Column -->
               <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата платежа </th>
                 <td mat-cell *matCellDef="let row"> {{row.date | date}} </td>
               </ng-container>
           
-              <!-- Fruit Column -->
               <ng-container matColumnDef="num">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> № Платежа </th>
                 <td mat-cell *matCellDef="let row"> {{row.num}} </td>
@@ -108,13 +62,25 @@ class="row"
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="createWord">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> createWord </th>
+              <ng-container matColumnDef="createPdf">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> createPdf </th>
                 <td mat-cell *matCellDef="let row"> 
-                    <button mat-icon-button color="warn" (click)="createWordFile(row.id, row)">
-                        <mat-icon>delete</mat-icon>
+                    <button mat-icon-button color="accent" (click)="createPdf(row.id, row)">
+                        <mat-icon>description</mat-icon>
                     </button>
                 </td>
+              </ng-container>
+
+              <ng-container matColumnDef="show">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> show </th>
+                <td mat-cell *matCellDef="let row"> 
+                    <button [disabled]="!row.doccreated" mat-icon-button (click)="pdf(row.id, row)">
+                        <mat-icon>description</mat-icon>
+                    </button>
+                    
+                </td>
+                
+                
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -133,3 +99,26 @@ class="row"
     </div>
 
 </div>
+
+<!-- <iframe [src]="pdfUrl" width="100%" height="500"></iframe> -->
+
+<!-- <div #pdfViewer></div> -->
+
+
+<!-- 
+
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Письмо для отправки</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+    </div>
+  </ng-template>
+   -->
+  

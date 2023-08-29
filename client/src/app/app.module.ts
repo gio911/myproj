@@ -21,6 +21,10 @@ import { MaterialModule } from 'src/material.module';
 import {ToastrModule} from 'ngx-toastr';
 import { AddCurrentPaymentsDialogComponent } from './add-current-payments-dialog/add-current-payments-dialog.component'
 import { DatePipe } from '@angular/common';
+import { WordDialogComponent } from './word-dialog/word-dialog.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {NgxExtendedPdfViewerModule} from 'ngx-extended-pdf-viewer'
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -37,6 +41,7 @@ import { DatePipe } from '@angular/common';
     LoaderComponent,
     CurrentPaymentsFormComponent,
     AddCurrentPaymentsDialogComponent,
+    WordDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,10 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    PdfViewerModule,
+    NgxExtendedPdfViewerModule,
+    NgbModalModule,
 
   ],
   providers: [DatePipe, 

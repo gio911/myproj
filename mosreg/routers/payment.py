@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 from database import get_db
 from mosreg.oauth2 import get_current_user
 from ..services import payment 
+from fastapi.responses import FileResponse
+from reportlab.pdfgen import canvas
 
 from mosreg import models, schemas
 
@@ -37,6 +39,16 @@ def update_payment(id:int, request:schemas.Payment, db:Session=Depends(get_db), 
 
     return payment.update(id, request, db, current_user)
 
-@router.post('/toword/{id}')
-def create_word_file(id:int, request:schemas.Payment, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
-    return payment.to_word(id, request, db, current_user)
+@router.post('/create-pdf/{id}', response_model=schemas.PaymentWithId)
+def create_pdf_file(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
+    print(95959595)
+
+    return payment.create_pdf(id, request, db, current_user)
+    
+
+
+@router.post('/fetch-pdf/{id}', response_model=str)
+def fetch_pdf(id:int, request:schemas.Payment, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
+    
+    print(9990)
+    return payment.fetch_pdf(id, request, db, current_user)

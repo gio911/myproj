@@ -2,6 +2,9 @@ from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel
 
+class PDFResponse(BaseModel):
+    filename: str
+    content_type: str
 
 class PaymentBase(BaseModel):
     date:datetime
@@ -11,6 +14,9 @@ class PaymentBase(BaseModel):
     contract:str
     purpose:str = None
     comment:str
+    docsrc:str = None
+    doccreated:str = None
+    docarchive:str = None
     
 class Payment(PaymentBase):
     class Config():
