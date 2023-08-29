@@ -62,8 +62,8 @@
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="createPdf">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> createPdf </th>
+              <ng-container matColumnDef="create">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> create </th>
                 <td mat-cell *matCellDef="let row"> 
                     <button mat-icon-button color="accent" (click)="createPdf(row.id, row)">
                         <mat-icon>description</mat-icon>
@@ -74,13 +74,17 @@
               <ng-container matColumnDef="show">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> show </th>
                 <td mat-cell *matCellDef="let row"> 
-                    <button [disabled]="!row.doccreated" mat-icon-button (click)="pdf(row.id, row)">
-                        <mat-icon>description</mat-icon>
+                    <button
+                    [disabled]="row.doccreated.toLowerCase()=='false'"  
+                    mat-icon-button 
+                    (click)="pdf(row.id, row)">
+                        <mat-icon 
+                        [color]="row.doccreated.toLowerCase()=='true' ? 'primary' : null"
+                        >
+                         description
+                        </mat-icon>
                     </button>
-                    
                 </td>
-                
-                
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

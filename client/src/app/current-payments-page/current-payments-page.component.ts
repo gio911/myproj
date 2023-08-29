@@ -19,7 +19,17 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 })
 export class CurrentPaymentsPageComponent implements OnInit{
   
-  displayedColumns: string[] = ['counterparty', 'contract', 'date', 'num', 'sum', 'comment', 'edit', 'delete', 'createPdf', 'show', ];
+  displayedColumns: string[] = ['counterparty', 
+                                'contract', 
+                                'date', 
+                                'num', 
+                                'sum', 
+                                'comment', 
+                                'edit', 
+                                'delete', 
+                                'create', 
+                                'show'
+                              ];
   dataSource: MatTableDataSource<any>;
   pdfUrl:any=''
 
@@ -39,42 +49,12 @@ export class CurrentPaymentsPageComponent implements OnInit{
     this.getAllPayments()
   }
 
-  // ngAfterViewInit(): void {
-  //   const container = this.pdfViewer.nativeElement
-  //   const url = this.pdfDocument
-
-  //   pdfjsLib.getDocument(url).promise.then((pdfDoc:any)=>{
-  //     this.pdfDocument=pdfDoc
-  //     //this.renderPdf()
-
-  //   })
-  // }
-
-  // renderPdf(){
-  //   const container = this.pdfViewer.nativeElement
-  //   for (let pageNum=1; pageNum<=this.pdfDocument.numPages; pageNum++){
-  //     this.pdfDocument.getPage(pageNum).then((page:any)=>{
-  //       const canvas = document.createElement('canvas')
-  //       const context = canvas.getContext('2d')
-  //       canvas.style.display='block'
-  //       container.appendChild(canvas)
-  //       canvas.height = 400
-  //       const viewport = page.getViewport({scale:1})
-  //       canvas.width = viewport.width
-
-  //       page.render({canvasContext:context, viewport:viewport})
-  //     })
-  //   }
-  // }
-
   getAllPayments(){
     this.currentPaymentService.fetchPayments()
       .subscribe({
         next:(res)=>{
           console.log(res, 543);
-          // const documentData = new Uint8Array(atob(res[0].document).split('').map(char => char.charCodeAt(0)));
-          // console.log(documentData);
-          
+
           this.dataSource = new MatTableDataSource(res)
           this.dataSource.paginator = this.paginator
           this.dataSource.sort = this.sort
@@ -147,12 +127,6 @@ export class CurrentPaymentsPageComponent implements OnInit{
           next:(res)=>{
             console.log(res);
             this.getAllPayments()
-          //   this.dialog.open(WordDialogComponent, {
-          //     width:'3000%' ,
-          //     data:res     
-          // })
-          //   console.log(res, 94949494)
-            //this.pdfObject=res
           },
           error:(err)=>{
             console.log('err',err);
