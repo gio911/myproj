@@ -46,9 +46,13 @@ def create_pdf_file(id:int, request:schemas.PaymentWithId, db:Session=Depends(ge
     return payment.create_pdf(id, request, db, current_user)
     
 
-
 @router.post('/fetch-pdf/{id}', response_model=str)
 def fetch_pdf(id:int, request:schemas.Payment, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
     
     print(9990)
     return payment.fetch_pdf(id, request, db, current_user)
+
+
+@router.post('/send-email/{id}', response_model=str)
+def send_email(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
+    return payment.email_sending(id, request, db, current_user) 

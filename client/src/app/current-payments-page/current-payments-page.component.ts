@@ -28,7 +28,8 @@ export class CurrentPaymentsPageComponent implements OnInit{
                                 'edit', 
                                 'delete', 
                                 'create', 
-                                'show'
+                                'show',
+                                'send'
                               ];
   dataSource: MatTableDataSource<any>;
   pdfUrl:any=''
@@ -150,15 +151,7 @@ export class CurrentPaymentsPageComponent implements OnInit{
         dialogConfig.width = '1000px';   // Set the width
         dialogConfig.height = '1000px'
         dialogConfig.data = { pdfUrl: this.pdfUrl};
-        // this.modalservice.open(this.popupview,{
-        //   size:'lg'
-        // })
-      //   this.dialog.open(WordDialogComponent, {
-      //     width:'3000%' ,
-      //     data:res     
-      // })
-      //   console.log(res, 94949494)
-        //this.pdfObject=res
+
         this.dialog.open(WordDialogComponent, dialogConfig)
       },
       error:(err)=>{
@@ -166,19 +159,19 @@ export class CurrentPaymentsPageComponent implements OnInit{
         
       }
     })
-
-
- 
-    
   }
-  // displayPdf(): void {
-  //   const file = new Blob([this.pdfData], { type: 'application/pdf' });
-  //   const pdfUrl = URL.createObjectURL(file);
-  //   console.log(pdfUrl, 84848);
-    
-  //   this.pdfUrl = pdfUrl
-  //   // Use this URL in your PDF viewer component
-  // }
+
+  sendDoc(id:number, payment:Payment){
+    this.currentPaymentService.sendEmail(id, payment).subscribe({
+      next:(res)=>{
+        console.log(res, 9494)
+      },
+      error:()=>{
+
+      }
+    })
+  }
+
   toggleCheckbox(id:number){
 
   }
