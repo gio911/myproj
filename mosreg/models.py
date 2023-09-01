@@ -16,7 +16,8 @@ class Payment(Base):
     purpose = Column(String)
     comment = Column(String)
     document = Column(LargeBinary)
-    docsrc = Column(String)
+    pdfsrc = Column(String)
+    wordsrc = Column(String)
     doccreated = Column(Boolean, default=False)
     docarchive = Column(Boolean, default=False)
 

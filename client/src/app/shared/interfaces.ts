@@ -17,7 +17,8 @@ export interface Payment{
     purpose?:string
     comment:string
     document?:Blob
-    docsrc?:string
+    pdfsrc?:string
+    wordsrc?:string
     doccreated?:boolean
     docarchive?:boolean
 }

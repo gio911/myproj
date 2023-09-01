@@ -1,19 +1,21 @@
 import os
-import smtplib
 from fastapi import Depends, HTTPException, status
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
+from pdf2docx import Converter
 
 from database import get_db
 from mosreg import models, schemas
 from mosreg.oauth2 import get_current_user
-from utils.to_word import generate_document
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from fpdf import FPDF
+from utils.pdf_pattern import pdf_pattern_creation
 
-from email.message import EmailMessage
-import ssl
-import imghdr
+#from pdf_mail import sendpdf
+
+from utils.send_file_email import sendpdf
+
 
 def get_all(db:Session = Depends(get_db), current_user:schemas.UserWithId=Depends(get_current_user)):
     print(333)
@@ -60,127 +62,56 @@ def create_pdf(id:int, request:schemas.PaymentWithId, db:Session = Depends(get_d
     
     if not payment:
         raise HTTPException(status_code=404, detail='Payment not found')
-    uload_folder='./uploads'
+    uload_folder_pdf='./uploads/pdf'
+    uload_folder_word='./uploads/word'
+
     pdf_filename=f'payment_{request.num}_pdf.pdf'
-    pdf_path= os.path.join(uload_folder, pdf_filename)
+    word_filename=f'payment_{request.num}_word.docx'
 
-    c = canvas.Canvas(pdf_path, pagesize=letter)
-    c.drawString(100, 750, f'Hello {request.counterparty}')
-    c.save()
+    pdf_path= os.path.join(uload_folder_pdf, pdf_filename)
+    word_path= os.path.join(uload_folder_word, word_filename)
+    
+    pdf_pattern_creation(pdf_path, request)
 
-    payment.docsrc = pdf_path
+    payment.pdfsrc = pdf_path
+
+    cv = Converter(pdf_path)
+    cv.convert(word_path, start=0, end=None)
+    cv.close()
+
+    payment.wordsrc = word_path
     payment.doccreated = True
     payment.docarchive = True
     db.commit()
 
-    # document_buffer = generate_document(request)
-    # print(type(document_buffer),90000000)
-    # print(document_buffer,90000000)
-    # payment.document = document_buffer
-    # db.commit()
     return payment
 
 
 def fetch_pdf(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
     
     payment = db.query(models.Payment).filter(models.Payment.user_id==current_user.id).filter(models.Payment.id==id).first()
-
-
     
-    pdf_path = payment.docsrc
+    pdf_path = payment.pdfsrc
     print( 44443434)
-
-    # c = canvas.Canvas(pdf_path)
-    # c.drawString(100, 750, "Hello, PDF!")
-    # c.save()
     return FileResponse(pdf_path, media_type="application/pdf")
 
 def email_sending(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
-    # payment = db.query(models.Payment).filter(models.Payment.user_id==current_user.id).filter(models.Payment.id==id).first()
 
-    # email_password = os.environ.get('EMAIL_PASSWORD')
-    # print(email_password,9494)
-    # subject = 'HELLO SUBJECT'
-    # body="""Rock-n-Roll baby"""
-    # email_to = 'syberdynesys@gmail.com'
-    # from_email='syberdynesys@gmail.com'
-   
-    # msg = EmailMessage()
-    # msg.set_content(body)
-    # msg['Subject'] = subject
-    # msg['From'] = from_email
-    # msg['To'] = email_to
+    file_path=request.wordsrc
 
-
-    # context = ssl.create_default_context()
-    # # # Read the PDF file content
-    # # with open(file_path, "rb") as pdf_file:
-    # #     pdf_content = pdf_file.read()
-
-    # # Attach the PDF file
-    # # pdf_filename = os.path.basename(file_path)
-    # # msg.add_attachment(pdf_content, maintype='application', subtype='pdf', filename=pdf_filename)
-
-    # with smtplib.SMTP('smtp.gmail.com', 587, context) as smtp:
-    #     # smtp.starttls()
-    #     smtp.login(from_email, email_password)
-    #     smtp.send_message(from_email, email_to, msg.as_string())
-
-    # # server.starttls()
-    # # try:
-    # #     server.
-
-    # #     return "Email sent successfully"
-    # # except Exception as e:
-    # #     raise HTTPException(status_code=500, detail=str(e))
-
-    # sender = 'syberdynesys@gmail.com'
-    # password = os.environ.get('EMAIL_PASSWORD')
-
-    # msg=EmailMessage()
-
-    # with open(file_path, 'rb') as f:
-    #     file_data= f.read()
-    #     file_type = imghdr.what(f.name)
-    #     file_name=f.name
-
-    # print(file_path, file_type, file_name, 9494940000000000)
-
-    # msg.add_attachment(file_data, maintype='multipart', subtype=file_type, filename=file_name)
-
-    # server = smtplib.SMTP('smtp.gmail.com', 587)
-
-    # server.starttls()
-
-
-
-    # try:
-    #     server.login(sender, password)
-    #     server.sendmail(sender, sender,msg)
-
-    #     return 'OK'
-    # except Exception as _ex:
-    #     return '555'
-
-
-
-    from pdf_mail import sendpdf
-
-    file_path=request.docsrc
-
-    uploads_path='./uploads'
-    pdf_filename = os.path.basename(file_path)
-    pdf_filename = pdf_filename.split('.')[0]
-    print(pdf_filename, 'pdf_filename')
+    uploads_word_path='./uploads/word'
+    word_filename = os.path.basename(file_path)
+    
+    print(word_filename, 'pdf_filename')
     print(file_path, 'file_path')
     k = sendpdf(
         'syberdynesys@gmail.com',
         'syberdynesys@gmail.com',
         os.environ.get('EMAIL_PASSWORD'),
-        'pdf document',
+        'word document',
         'body of message',
-        pdf_filename,
-        uploads_path
+        word_filename,
+        uploads_word_path
     )
 
     k.email_send()

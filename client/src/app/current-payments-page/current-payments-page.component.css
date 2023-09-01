@@ -38,5 +38,10 @@ table {
 }
 
   
-
+.mat-build{
+    color:green
+}
   
+.mat-show{
+    color:tomato
+}

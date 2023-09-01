@@ -14,7 +14,8 @@ class PaymentBase(BaseModel):
     contract:str
     purpose:str = None
     comment:str
-    docsrc:str = None
+    pdfsrc:str = None
+    wordsrc:str = None
     doccreated:str = None
     docarchive:str = None
     
