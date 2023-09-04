@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from mosreg.routers import archive_payment
+
 from .routers import payment, user, authentication
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -17,6 +19,8 @@ app.add_middleware(
 app.include_router(authentication.router)
 
 app.include_router(payment.router)
+
+app.include_router(archive_payment.router)
 
 app.include_router(user.router)
 

@@ -14,7 +14,6 @@ router = APIRouter(
     tags=['Payments'],
 )
 
-
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=schemas.Payment)
 def create(request:schemas.Payment, db:Session = Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
     return payment.create(request, db, current_user)

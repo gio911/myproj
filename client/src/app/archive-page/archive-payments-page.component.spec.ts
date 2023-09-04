@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArchivePageComponent } from './archive-page.component';
+import { ArchivePageComponent } from './archive-payments-page.component';
 
 describe('ArchivePageComponent', () => {
   let component: ArchivePageComponent;

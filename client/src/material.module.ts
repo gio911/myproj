@@ -15,6 +15,7 @@ import {MatSidenavModule} from '@angular/material/sidenav'
 import {MatListModule} from '@angular/material/list'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 
 
@@ -37,6 +38,8 @@ import {MatNativeDateModule} from '@angular/material/core';
         MatListModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatProgressSpinnerModule
+
     ]
 
 })

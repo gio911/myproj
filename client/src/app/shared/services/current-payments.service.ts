@@ -40,11 +40,11 @@ export class CurrentPaymentsService{
 
     fetchPdf(id:number, payment:Payment){
         return this.http.post(this.apiUrl+'/api/currentpayments/fetch-pdf/'+id, payment, {observe:'response', responseType: 'blob' });
-      }
+    }
 
-      sendEmail(id:number, payment:Payment):Observable<string>{
+    sendEmail(id:number, payment:Payment):Observable<string>{
         return this.http.post<string>(this.apiUrl+'/api/currentpayments/send-email/'+id, payment)
-      }
+    }
 
     
 }

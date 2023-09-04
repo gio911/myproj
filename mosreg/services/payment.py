@@ -7,19 +7,14 @@ from pdf2docx import Converter
 from database import get_db
 from mosreg import models, schemas
 from mosreg.oauth2 import get_current_user
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from fpdf import FPDF
 from utils.pdf_pattern import pdf_pattern_creation
-
-#from pdf_mail import sendpdf
 
 from utils.send_file_email import sendpdf
 
 
 def get_all(db:Session = Depends(get_db), current_user:schemas.UserWithId=Depends(get_current_user)):
     print(333)
-    payments = db.query(models.Payment).filter(models.Payment.user_id==current_user.id).all()
+    payments = db.query(models.Payment).filter(models.Payment.user_id==current_user.id).filter(models.Payment.docarchive==False).all()
     print(4444)
     return payments
 
@@ -81,11 +76,9 @@ def create_pdf(id:int, request:schemas.PaymentWithId, db:Session = Depends(get_d
 
     payment.wordsrc = word_path
     payment.doccreated = True
-    payment.docarchive = True
     db.commit()
 
     return payment
-
 
 def fetch_pdf(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
     
@@ -96,6 +89,7 @@ def fetch_pdf(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_db),
     return FileResponse(pdf_path, media_type="application/pdf")
 
 def email_sending(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_db), current_user:schemas.User=Depends(get_current_user)):
+    payment = db.query(models.Payment).filter(models.Payment.user_id==current_user.id).filter(models.Payment.id==id).first()
 
     file_path=request.wordsrc
 
@@ -115,5 +109,6 @@ def email_sending(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_
     )
 
     k.email_send()
-
-    return 'File was sent'
+    payment.docarchive = True
+    db.commit()
+    return 'Письмо отправлено'

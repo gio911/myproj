@@ -38,6 +38,8 @@ export class CurrentPaymentsPageComponent implements OnInit{
   @ViewChild(MatSort) sort: MatSort;
   pdfDocument:any
   pdfData: any;
+  isLoading=false
+
   constructor(private dialog:MatDialog, 
               private currentPaymentService:CurrentPaymentsService,
               private toaster:ToastrService,
@@ -74,8 +76,8 @@ export class CurrentPaymentsPageComponent implements OnInit{
     
   }
 
-  confirmDelete() {
-    const shouldDelete = window.confirm('Are you sure you want to delete this item?');
+  confirmDelete(text:string) {
+    const shouldDelete = window.confirm(text);
     if (shouldDelete) {
       return true
     } else {
@@ -105,7 +107,7 @@ export class CurrentPaymentsPageComponent implements OnInit{
   }
 
   deletePayment(id:number){
-    const state = this.confirmDelete()
+    const state = this.confirmDelete('Удалить платеж и поместить его в архив?')
 
     if(state){
       this.currentPaymentService.deleteProduct(id)
@@ -134,7 +136,6 @@ export class CurrentPaymentsPageComponent implements OnInit{
             
           }
         })
-        
    }
 
   pdf(id:number, payment:Payment){
@@ -162,18 +163,26 @@ export class CurrentPaymentsPageComponent implements OnInit{
   }
 
   sendDoc(id:number, payment:Payment){
-    this.currentPaymentService.sendEmail(id, payment).subscribe({
-      next:(res)=>{
-        console.log(res, 9494)
-      },
-      error:()=>{
 
-      }
-    })
-  }
+    const state = this.confirmDelete('Отправить письмо и перенести его в архив?')
 
-  toggleCheckbox(id:number){
+    if(state){
+      this.isLoading=true
+      this.currentPaymentService.sendEmail(id, payment).subscribe({
+        next:(res)=>{
+          console.log(res, 9494)
+          
 
+          this.toaster.success(res)
+          this.getAllPayments()
+          this.isLoading=false
+  
+        },
+        error:()=>{
+  
+        }
+      })
+    }
   }
 
 }

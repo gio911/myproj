@@ -45,3 +45,10 @@ table {
 .mat-show{
     color:tomato
 }
+
+.spinner-container {
+    display: flex;
+    justify-content: center; 
+    align-items: top; 
+    height: 100vh; 
+  }
