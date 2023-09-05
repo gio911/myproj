@@ -12,7 +12,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
 import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
-import { ArchivePageComponent } from './archive-page/archive-payments-page.component';
+import { ArchivePageComponent } from './archive-payments-page/archive-payments-page.component';
 import { CurrentPaymentsPageComponent } from './current-payments-page/current-payments-page.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { CurrentPaymentsFormComponent } from './current-payments-page/current-payments-form/current-payments-form.component';
@@ -25,6 +25,7 @@ import { WordDialogComponent } from './word-dialog/word-dialog.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {NgxExtendedPdfViewerModule} from 'ngx-extended-pdf-viewer'
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommentmentsDialodComponent } from './commentments-dialod/commentments-dialod.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     CurrentPaymentsFormComponent,
     AddCurrentPaymentsDialogComponent,
     WordDialogComponent,
+    CommentmentsDialodComponent,
   ],
   imports: [
     BrowserModule,

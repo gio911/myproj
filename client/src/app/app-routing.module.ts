@@ -7,7 +7,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { AuthGuard } from './shared/classes/auth.guard';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
 import { CurrentPaymentsPageComponent } from './current-payments-page/current-payments-page.component';
-import { ArchivePageComponent } from './archive-page/archive-payments-page.component';
+import { ArchivePageComponent } from './archive-payments-page/archive-payments-page.component';
 import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
 import { CurrentPaymentsFormComponent } from './current-payments-page/current-payments-form/current-payments-form.component';
 

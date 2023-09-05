@@ -6,6 +6,11 @@ class PDFResponse(BaseModel):
     filename: str
     content_type: str
 
+class Commentment(BaseModel):
+    id:int
+    text:str
+    isDone:bool=False
+
 class PaymentBase(BaseModel):
     date:datetime
     num:int
@@ -18,6 +23,7 @@ class PaymentBase(BaseModel):
     wordsrc:str = None
     doccreated:str = None
     docarchive:str = None
+    comments:List[Commentment]=[]
     
 class Payment(PaymentBase):
     class Config():
@@ -74,3 +80,4 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
+
