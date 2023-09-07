@@ -44,9 +44,10 @@ class Payment(Base):
 
 
 class Commentment(Base):
-    __tablename__='comments'
+    __tablename__='commentments'
 
     id = Column(Integer, primary_key=True, index=True)
+    date = Column(DateTime, default=datetime.utcnow)
     text = Column(String)
     isDone = Column(Boolean, default=False)    
 

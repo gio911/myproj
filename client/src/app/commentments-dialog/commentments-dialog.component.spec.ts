@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommentmentsDialodComponent } from './commentments-dialod.component';
+import { CommentmentsDialodComponent } from './commentments-dialog.component';
 
 describe('CommentmentsDialodComponent', () => {
   let component: CommentmentsDialodComponent;

@@ -8,8 +8,11 @@ class PDFResponse(BaseModel):
 
 class Commentment(BaseModel):
     id:int
-    text:str
-    isDone:bool=False
+    date:datetime
+    text: str
+    isDone: bool
+    payment_id: int
+    user_id: int
 
 class PaymentBase(BaseModel):
     date:datetime
@@ -21,9 +24,8 @@ class PaymentBase(BaseModel):
     comment:str
     pdfsrc:str = None
     wordsrc:str = None
-    doccreated:str = None
-    docarchive:str = None
-    comments:List[Commentment]=[]
+    doccreated:bool = False
+    docarchive:bool = False
     
 class Payment(PaymentBase):
     class Config():
@@ -31,6 +33,7 @@ class Payment(PaymentBase):
     
 class PaymentWithId(PaymentBase):
     id:int
+    user_id:int
     class Config():
         orm_mode=True
 
@@ -81,3 +84,8 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     email: Optional[str] = None
 
+class PaymentWithCommentment(PaymentBase):
+    commentments:List[Commentment]
+
+    class Config():
+        orm_mode=True

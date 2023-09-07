@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Payment } from '../shared/interfaces';
 import { ArchivePaymentsService } from '../shared/services/archive-payment.service';
 import { WordDialogComponent } from '../word-dialog/word-dialog.component';
-import { CommentmentsDialodComponent } from '../commentments-dialod/commentments-dialod.component';
+import { CommentmentsDialodComponent } from '../commentments-dialog/commentments-dialog.component';
 
 @Component({
   selector: 'app-archive-payments-page',
@@ -145,7 +145,8 @@ export class ArchivePageComponent implements OnInit {
 
   showToDoList(payment:Payment){
       this.dialog.open(CommentmentsDialodComponent,{
-        width:'60%',
+        width:'200%',
+        height:'300%',
         data:{
           payment:payment
         }

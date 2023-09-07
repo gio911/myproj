@@ -110,5 +110,12 @@ def email_sending(id:int, request:schemas.PaymentWithId, db:Session=Depends(get_
 
     k.email_send()
     payment.docarchive = True
+    first_commentment = models.Commentment(text='Письмо отправлено на почту', user_id=current_user.id, payment_id=payment.id)
+
+    db.add(first_commentment)
     db.commit()
+    db.refresh(first_commentment)
+    db.commit()
+
+    db.close()
     return 'Письмо отправлено'

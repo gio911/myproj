@@ -12,7 +12,6 @@
             "module": "uvicorn",
             "args": [
                 "mosreg.main:app",
-                
                 "--reload",
             ],
             "jinja": true,

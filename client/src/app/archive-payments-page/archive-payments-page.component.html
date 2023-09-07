@@ -63,12 +63,12 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                 <td mat-cell *matCellDef="let row"> 
                     <button
-                    [disabled]="row.doccreated.toLowerCase()=='false'"  
+                    [disabled]="row.doccreated==false"  
                     mat-icon-button 
                     (click)="pdf(row.id, row)">
                         <mat-icon 
                        
-                        [color]="row.doccreated.toLowerCase()=='true' ? 'primary' : null"
+                        [color]="row.doccreated==true ? 'primary' : null"
                         >
                         visibility
                         </mat-icon>

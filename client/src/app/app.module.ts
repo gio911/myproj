@@ -25,7 +25,7 @@ import { WordDialogComponent } from './word-dialog/word-dialog.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {NgxExtendedPdfViewerModule} from 'ngx-extended-pdf-viewer'
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { CommentmentsDialodComponent } from './commentments-dialod/commentments-dialod.component';
+import { CommentmentsDialodComponent } from './commentments-dialog/commentments-dialog.component';
 
 
 @NgModule({

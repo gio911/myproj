@@ -27,3 +27,13 @@ export interface Token{
     access_token:string
     token_type:string
 }
+
+
+export interface Commentment{
+    id:number
+    date?:Date
+    text:string
+    isDone?:boolean
+    user_id?:number
+    payment_id?:number
+}
